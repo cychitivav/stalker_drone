@@ -14,6 +14,7 @@ from mavros_msgs.srv import CommandBool, CommandBoolRequest, SetMode, SetModeReq
 class move():
     def __init__(self):
         self.takeoff()
+        command.takeoff()
         
     def arm(self, state=True):
         return command.arming(value=state)
@@ -24,7 +25,7 @@ class move():
                                 longitude=longitude,
                                 altitude=altitude)
         
-    def takeoff(self, min_pitch=0, yaw=0, latitude=0, longitude=0, altitude=3):
+    def takeoff(self, min_pitch=0.0, yaw=0.0, latitude=0.0, longitude=0.0, altitude=3.0):
         return command.takeoff( min_pitch=min_pitch,
                                 yaw=yaw,
                                 latitude=latitude,
