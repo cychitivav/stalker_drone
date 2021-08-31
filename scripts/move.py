@@ -22,7 +22,7 @@ class move():
         rospy.wait_for_service('/mavros/cmd/arming')        
         self.arm_client = rospy.ServiceProxy('/mavros/cmd/arming', CommandBool)
         rospy.wait_for_service('/mavros/set_mode')
-        self.mode_client = rospy.ServiceProxy('/mavros/set_mode', SetMode)
+        self.mode_client = rospy.ServiceProxy(mavros.get_topic('set_mode'), SetMode)
         
         self.setpoint_raw_publisher = rospy.Publisher('/mavros/setpoint_raw/local', PositionTarget, queue_size=1)
         
@@ -87,10 +87,7 @@ class move():
         
     def request_mode(self, mode='OFFBOARD'):
         rospy.sleep(2)
-        req = SetModeRequest()
-        req.custom_mode = mode
-        
-        return self.mode_client(req)    
+        return self.mode_client(custom_mode=mode)    
     
     def pose_stamped_cb(self, msg):
         self.pose_stamped = msg
