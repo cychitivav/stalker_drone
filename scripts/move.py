@@ -14,6 +14,7 @@ class move():
         self.setpoint_raw = PositionTarget()
         self.rate = rospy.Rate(20)
         self.pose_stamped = PoseStamped()
+        self.state = State()
         
         self.stay_armed_stay_offboard_timer = rospy.Timer(rospy.Duration(5), self.stay_armed_stay_offboard_cb)
         self.stay_armed_stay_offboard_timer.shutdown()
@@ -25,10 +26,15 @@ class move():
         
         self.setpoint_raw_publisher = rospy.Publisher('/mavros/setpoint_raw/local', PositionTarget, queue_size=1)
         
-        rospy.Subscriber(self.ns + 'mavros/local_position/pose', PoseStamped, self.pose_stamped_cb)
+        rospy.Subscriber('/mavros/local_position/pose', PoseStamped, self.pose_stamped_cb)
+        rospy.Subscriber('/mavros/state', State, self.state_cb)
         
         
         self.takeoff()
+        
+    def state_cb(self, msg):
+        self.state = msg
+        rospy.logdebug('State updated')
         
     def arm(self, value=True):
         req = CommandBoolRequest()
