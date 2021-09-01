@@ -17,7 +17,7 @@
             <inertia ixx="0.06418" ixy="0.0" ixz="-0.00192" iyy="0.06418" iyz="0.0" izz="0.11906"/>
         </inertial>
         <visual>
-            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -1.57"/>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 1.57"/>
             <geometry>
                 <mesh filename="package://stalker_drone/meshes/Persona.stl" scale="0.01 0.01 0.01"/>
             </geometry>
@@ -31,39 +31,6 @@
             </geometry>
         </collision>
     </link>
-
-<!-- persona-->
-    <!-- <joint name="joint_name" type="fixed">
-        <parent link="chasis"/>
-        <child link="persona"/>
-        <origin xyz="0.0 20.0 0.0" rpy="0.0 0.0 0.0"/>
-    </joint>
-    
-    <link name="persona">
-        <visual name="">
-            <origin xyz="0.0 100.0 0.0" rpy="0.0 0.0 0.0"/>
-            <geometry>
-                 <mesh filename="package://kobuki_x360controller/meshes/Persona.obj"/>
-            </geometry>
-            <material name="">
-                <color rgba="1.0 0.0 0.0 1.0"/>
-                <texture filename=""/>
-            </material>
-        </visual>
-        <collision>
-            <origin xyz="0.0 100.0 0.0" rpy="0.0 0.0 0.0"/>
-            <geometry>
-                <mesh filename="package://kobuki_x360controller/meshes/Persona.obj"/>
-            </geometry>
-        </collision>
-    </link>
- -->
-
-
-
-
-
-
 
     <!-- Right wheel -->
     <joint name="right_wheel_joint" type="continuous">
