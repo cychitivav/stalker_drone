@@ -22,7 +22,7 @@
                 <mesh filename="package://stalker_drone/meshes/Persona.stl" scale="0.01 0.01 0.01"/>
             </geometry>
             <material name="Hombre">
-                <color rgba="1.0 0.8 0.8 1.0"/>
+                <color rgba="0.99 0.86 0.79 1.0"/>
             </material>
         </visual>
         <collision>
