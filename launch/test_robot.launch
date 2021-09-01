@@ -11,9 +11,7 @@
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"/>
 
     <!-- Launch Gazebo-->
-    <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="use_sim_time" value="true"/>
-    </include>
+    <include file="$(find stalker_drone)/launch/city_world.launch"/>
 
     <!-- Spawn model -->
     <node pkg="gazebo_ros" type="spawn_model" name="spawn_kobuki" respawn="false" args=" -urdf -param robot_description -model $(arg robot_name)"/>
