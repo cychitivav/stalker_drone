@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Load model -->
+    <arg name="robot_name" default="human"/>
+    <arg name="robot_xacro" default="$(find stalker_drone)/urdf/robot.urdf"/>
+
+    <!-- Parser -->
+    <param name="robot_description" command="$(find xacro)/xacro $(arg robot_xacro)"/>
+
+    <!-- Convert joint states to TF transforms for rviz -->
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"/>
+
+    <!-- Launch Gazebo-->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="use_sim_time" value="true"/>
+    </include>
+
+    <!-- Spawn model -->
+    <node pkg="gazebo_ros" type="spawn_model" name="spawn_kobuki" respawn="false" args=" -urdf -param robot_description -model $(arg robot_name)"/>
+
+    <!-- Load joint controller configuration -->
+    <rosparam file="$(find kobuki_x360controller)/config/controller.yaml" command="load"/>
+
+    <!-- Load controller -->
+    <node name="robot_controllers" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="joint_state_controller 
+                  left_wheel_ctrl
+                  right_wheel_ctrl" />
+
+    <!-- Node python scripts -->
+    <node name="kinematic_model" pkg="kobuki_x360controller" output="screen" type="kinematic_model.py"/>
+</launch>

@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<robot name="kobuki">
+    <!-- Base footprint -->
+    <link name="base_footprint"/>
+
+
+    <!-- Chasis -->
+    <joint name="fixed_joint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="chasis"/>
+        <origin xyz="0.0 0.0 0.0352" rpy="0.0 0.0 0.0"/>
+    </joint>   
+    
+    <link name="chasis">
+        <inertial>
+            <mass value="8.066"/>
+            <inertia ixx="0.06418" ixy="0.0" ixz="-0.00192" iyy="0.06418" iyz="0.0" izz="0.11906"/>
+        </inertial>
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -1.57"/>
+            <geometry>
+                <mesh filename="package://stalker_drone/meshes/Persona.stl" scale="0.01 0.01 0.01"/>
+            </geometry>
+            <material name="Hombre">
+                <color rgba="1.0 0.8 0.8 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://kobuki_x360controller/meshes/kobuki.stl"/>
+            </geometry>
+        </collision>
+    </link>
+
+<!-- persona-->
+    <!-- <joint name="joint_name" type="fixed">
+        <parent link="chasis"/>
+        <child link="persona"/>
+        <origin xyz="0.0 20.0 0.0" rpy="0.0 0.0 0.0"/>
+    </joint>
+    
+    <link name="persona">
+        <visual name="">
+            <origin xyz="0.0 100.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                 <mesh filename="package://kobuki_x360controller/meshes/Persona.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="1.0 0.0 0.0 1.0"/>
+                <texture filename=""/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 100.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <mesh filename="package://kobuki_x360controller/meshes/Persona.obj"/>
+            </geometry>
+        </collision>
+    </link>
+ -->
+
+
+
+
+
+
+
+    <!-- Right wheel -->
+    <joint name="right_wheel_joint" type="continuous">
+        <parent link="chasis"/>
+        <child link="right_wheel"/>
+        <axis xyz="0 0 1"/>
+        <origin xyz="0 -0.115 0" rpy="${pi/2} 0 0"/>
+    </joint>
+
+    <link name="right_wheel">
+        <inertial>
+            <mass value="0.084"/>
+            <inertia ixx="0.00002" ixy="0.0" ixz="0.0" iyy="0.00002" iyz="0.0" izz="0.00005"/>
+        </inertial>
+        <visual>
+            <geometry>
+                <mesh filename="package://kobuki_x360controller/meshes/wheel.stl"/>
+            </geometry>
+            <material name="blue">
+                <color rgba="0.0 0.0 1.0 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.0352"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <transmission name="right_wheel_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="right_wheel_joint">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="right_wheel_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+   
+    <!-- Left wheel -->
+    <joint name="left_wheel_joint" type="continuous">
+        <parent link="chasis"/>
+        <child link="left_wheel"/>
+        <axis xyz="0 0 1"/>
+        <origin xyz="0 0.115 0" rpy="${pi/2} 0 0"/>
+    </joint>
+
+    <link name="left_wheel">
+        <inertial>
+            <mass value="0.084"/>
+            <inertia ixx="0.00002" ixy="0.0" ixz="0.0" iyy="0.00002" iyz="0.0" izz="0.00005"/>
+        </inertial>
+        <visual>
+            <geometry>
+                <mesh filename="package://kobuki_x360controller/meshes/wheel.stl"/>
+            </geometry>
+            <material name="blue">
+                <color rgba="0.0 0.0 1.0 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.0352"/>
+            </geometry>
+        </collision>
+    </link>  
+
+    <transmission name="left_wheel_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="left_wheel_joint">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="left_wheel_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+
+    <!-- Gazebo Plugins -->
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/</robotNamespace>
+        </plugin>
+    </gazebo>
+
+     <gazebo reference="chasis"> <!-- reference to a existing "link" -->
+        <!-- NOTE: use Gazebo/DepthMap to take color from mesh (.dae only) -->
+        <material>Gazebo/Orange</material>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <selfCollide>True</selfCollide>
+    </gazebo>
+
+</robot>
+
