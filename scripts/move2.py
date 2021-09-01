@@ -13,6 +13,9 @@ from mavros_msgs.srv import CommandBool, CommandBoolRequest, SetMode, SetModeReq
 
 class move():
     def __init__(self):
+        mavros.set_namespace()
+        self.arm()
+        rospy.sleep(5)
         self.takeoff()
         command.takeoff()
         
@@ -25,12 +28,8 @@ class move():
                                 longitude=longitude,
                                 altitude=altitude)
         
-    def takeoff(self, min_pitch=0.0, yaw=0.0, latitude=0.0, longitude=0.0, altitude=3.0):
-        return command.takeoff( min_pitch=min_pitch,
-                                yaw=yaw,
-                                latitude=latitude,
-                                longitude=longitude,
-                                altitude=altitude)
+    def takeoff(self, min_pitch1=0.0, yaw1=0.0, latitude1=0.0, longitude1=0.0, altitude1=3.0):
+        command.takeoff(min_pitch=min_pitch1,yaw=yaw1,latitude=latitude1,longitude=longitude1,altitude=altitude1)
         
     def do_takeoff_cur_gps(self, args):
         done_evt = threading.Event()

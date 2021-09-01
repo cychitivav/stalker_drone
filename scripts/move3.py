@@ -19,6 +19,7 @@ class move():
         self.takeoff_client = rospy.ServiceProxy('/mavros/cmd/takeoff', CommandTOL)
         
         self.arm()
+        rospy.sleep(5)
         self.takeoff()
         
     def arm(self, value=True):

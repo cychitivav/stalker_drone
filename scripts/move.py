@@ -3,6 +3,7 @@
 import rospy
 import tf
 import numpy as np
+import mavros
 from geometry_msgs.msg import PoseStamped, TwistStamped
 from mavros_msgs.msg import State, ExtendedState, PositionTarget, ParamValue
 from mavros_msgs.srv import CommandBool, CommandBoolRequest, SetMode, SetModeRequest, CommandTOL, CommandTOLRequest, \
@@ -11,6 +12,7 @@ from mavros_msgs.srv import CommandBool, CommandBoolRequest, SetMode, SetModeReq
 
 class move():
     def __init__(self):
+        mavros.set_namespace()
         self.setpoint_raw = PositionTarget()
         self.rate = rospy.Rate(20)
         self.pose_stamped = PoseStamped()
