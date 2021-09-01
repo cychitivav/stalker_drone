@@ -23,4 +23,5 @@
 
     <!-- Node python scripts -->
     <node name="kinematic_model" pkg="kobuki_x360controller" output="screen" type="kinematic_model.py"/>
+    <node name="x360_controller" pkg="kobuki_x360controller" output="screen" type="xbox_controller.py"/>
 </launch>
